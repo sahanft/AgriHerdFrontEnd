@@ -1,465 +1,792 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-green': {
-                            50: '#f0fdf4',
-                            100: '#dcfce7',
-                            200: '#bbf7d0',
-                            300: '#86efac',
-                            400: '#4ade80',
-                            500: '#22c55e',
-                            600: '#16a34a',
-                            700: '#15803d',
-                            800: '#166534',
-                            900: '#14532d',
-                            950: '#052e16'
-                        }
-                    }
-                }
-            }
-        }
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "dark-green": {
+                50: "#f0fdf4",
+                100: "#dcfce7",
+                200: "#bbf7d0",
+                300: "#86efac",
+                400: "#4ade80",
+                500: "#22c55e",
+                600: "#16a34a",
+                700: "#15803d",
+                800: "#166534",
+                900: "#14532d",
+                950: "#052e16",
+              },
+            },
+          },
+        },
+      };
     </script>
-</head>
-<body class="bg-gray-100 font-sans">
+  </head>
+  <body class="bg-gray-100 font-sans">
     <!-- Sidebar -->
-    <div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-dark-green-800 text-white transform transition-transform duration-300 z-50">
-        <div class="p-6 border-b border-dark-green-700">
-            <h1 class="text-xl font-bold text-dark-green-100">🌿 EcoSystem</h1>
-        </div>
-        
-        <nav class="mt-6">
-            <a href="#" onclick="showPage('dashboard')" class="nav-item flex items-center px-6 py-3 text-dark-green-200 hover:bg-dark-green-700 hover:text-white transition-colors duration-200 border-l-4 border-transparent hover:border-dark-green-400" data-page="dashboard">
-                <span class="mr-3">📊</span>
-                Dashboard
-            </a>
-            <a href="#" onclick="showPage('animals')" class="nav-item flex items-center px-6 py-3 text-dark-green-200 hover:bg-dark-green-700 hover:text-white transition-colors duration-200 border-l-4 border-transparent hover:border-dark-green-400" data-page="animals">
-                <span class="mr-3">🐾</span>
-                Animals
-            </a>
-            <a href="#" onclick="showPage('employees')" class="nav-item flex items-center px-6 py-3 text-dark-green-200 hover:bg-dark-green-700 hover:text-white transition-colors duration-200 border-l-4 border-transparent hover:border-dark-green-400" data-page="employees">
-                <span class="mr-3">👥</span>
-                Employees
-            </a>
-        </nav>
-        
-        <div class="absolute bottom-6 left-6 text-dark-green-300 text-sm">
-            <p>© 2025 EcoSystem</p>
-        </div>
+    <div
+      id="sidebar"
+      class="fixed left-0 top-0 h-full w-64 bg-dark-green-800 text-white transform transition-transform duration-300 z-50"
+    >
+      <div class="p-6 border-b border-dark-green-700">
+        <h1 class="text-xl font-bold text-dark-green-100">🌿 EcoSystem</h1>
+      </div>
+
+      <nav class="mt-6">
+        <a
+          href="#"
+          onclick="showPage('dashboard')"
+          class="nav-item flex items-center px-6 py-3 text-dark-green-200 hover:bg-dark-green-700 hover:text-white transition-colors duration-200 border-l-4 border-transparent hover:border-dark-green-400"
+          data-page="dashboard"
+        >
+          <span class="mr-3">📊</span>
+          Dashboard
+        </a>
+        <a
+          href="#"
+          onclick="showPage('animals')"
+          class="nav-item flex items-center px-6 py-3 text-dark-green-200 hover:bg-dark-green-700 hover:text-white transition-colors duration-200 border-l-4 border-transparent hover:border-dark-green-400"
+          data-page="animals"
+        >
+          <span class="mr-3">🐾</span>
+          Animals
+        </a>
+        <a
+          href="#"
+          onclick="showPage('employees')"
+          class="nav-item flex items-center px-6 py-3 text-dark-green-200 hover:bg-dark-green-700 hover:text-white transition-colors duration-200 border-l-4 border-transparent hover:border-dark-green-400"
+          data-page="employees"
+        >
+          <span class="mr-3">👥</span>
+          Employees
+        </a>
+      </nav>
+
+      <div class="absolute bottom-6 left-6 text-dark-green-300 text-sm">
+        <p>© 2025 EcoSystem</p>
+      </div>
     </div>
 
     <!-- Mobile menu button -->
-    <button id="mobile-menu-btn" class="fixed top-4 left-4 z-50 md:hidden bg-dark-green-800 text-white p-2 rounded-lg">
-        <span class="block w-6 h-0.5 bg-white mb-1"></span>
-        <span class="block w-6 h-0.5 bg-white mb-1"></span>
-        <span class="block w-6 h-0.5 bg-white"></span>
+    <button
+      id="mobile-menu-btn"
+      class="fixed top-4 left-4 z-50 md:hidden bg-dark-green-800 text-white p-2 rounded-lg"
+    >
+      <span class="block w-6 h-0.5 bg-white mb-1"></span>
+      <span class="block w-6 h-0.5 bg-white mb-1"></span>
+      <span class="block w-6 h-0.5 bg-white"></span>
     </button>
 
     <!-- Main Content -->
     <div class="ml-64 transition-all duration-300" id="main-content">
-        <!-- Header -->
-        <header class="bg-white shadow-sm border-b border-gray-200 p-6">
-            <h2 id="page-title" class="text-2xl font-semibold text-gray-800">Dashboard</h2>
-        </header>
+      <!-- Header -->
+      <header class="bg-white shadow-sm border-b border-gray-200 p-6">
+        <h2 id="page-title" class="text-2xl font-semibold text-gray-800">
+          Dashboard
+        </h2>
+      </header>
 
-        <!-- Page Content -->
-        <main class="p-6">
-            <!-- Dashboard Page -->
-            <div id="dashboard-page" class="page-content">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                    <div class="bg-white rounded-lg shadow p-6 border-l-4 border-dark-green-500">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm font-medium text-gray-600">Total Animals</p>
-                                <p class="text-3xl font-bold text-dark-green-600">247</p>
-                            </div>
-                            <span class="text-3xl">🐾</span>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white rounded-lg shadow p-6 border-l-4 border-dark-green-500">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm font-medium text-gray-600">Employees</p>
-                                <p class="text-3xl font-bold text-dark-green-600">42</p>
-                            </div>
-                            <span class="text-3xl">👥</span>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white rounded-lg shadow p-6 border-l-4 border-dark-green-500">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm font-medium text-gray-600">Active Projects</p>
-                                <p class="text-3xl font-bold text-dark-green-600">12</p>
-                            </div>
-                            <span class="text-3xl">📋</span>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white rounded-lg shadow p-6 border-l-4 border-dark-green-500">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm font-medium text-gray-600">Conservation Rate</p>
-                                <p class="text-3xl font-bold text-dark-green-600">94%</p>
-                            </div>
-                            <span class="text-3xl">🌱</span>
-                        </div>
-                    </div>
+      <!-- Page Content -->
+      <main class="p-6">
+        <!-- Dashboard Page -->
+        <div id="dashboard-page" class="page-content">
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
+          >
+            <div
+              class="bg-white rounded-lg shadow p-6 border-l-4 border-dark-green-500"
+            >
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm font-medium text-gray-600">Total Animals</p>
+                  <p class="text-3xl font-bold text-dark-green-600">247</p>
                 </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div class="bg-white rounded-lg shadow p-6">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Recent Activity</h3>
-                        <div class="space-y-4">
-                            <div class="flex items-center space-x-3">
-                                <span class="text-2xl">🦁</span>
-                                <div>
-                                    <p class="font-medium">New lion cubs born</p>
-                                    <p class="text-sm text-gray-600">2 hours ago</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-3">
-                                <span class="text-2xl">👩‍🔬</span>
-                                <div>
-                                    <p class="font-medium">Dr. Smith completed health check</p>
-                                    <p class="text-sm text-gray-600">4 hours ago</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-3">
-                                <span class="text-2xl">🌿</span>
-                                <div>
-                                    <p class="font-medium">New conservation program launched</p>
-                                    <p class="text-sm text-gray-600">1 day ago</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-lg shadow p-6">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Quick Actions</h3>
-                        <div class="grid grid-cols-2 gap-4">
-                            <button class="bg-dark-green-600 hover:bg-dark-green-700 text-white px-4 py-2 rounded-lg transition-colors duration-200">Add Animal</button>
-                            <button class="bg-dark-green-600 hover:bg-dark-green-700 text-white px-4 py-2 rounded-lg transition-colors duration-200">New Employee</button>
-                            <button class="bg-dark-green-600 hover:bg-dark-green-700 text-white px-4 py-2 rounded-lg transition-colors duration-200">Generate Report</button>
-                            <button class="bg-dark-green-600 hover:bg-dark-green-700 text-white px-4 py-2 rounded-lg transition-colors duration-200">Schedule Task</button>
-                        </div>
-                    </div>
-                </div>
+                <span class="text-3xl">🐾</span>
+              </div>
             </div>
 
-            <!-- Animals Page -->
-            <div id="animals-page" class="page-content hidden">
-                <div class="bg-white rounded-lg shadow overflow-hidden">
-                    <div class="p-6 border-b border-gray-200">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-lg font-semibold text-gray-800">Animal Registry</h3>
-                            <button class="bg-dark-green-600 hover:bg-dark-green-700 text-white px-4 py-2 rounded-lg transition-colors duration-200">Add New Animal</button>
-                        </div>
-                    </div>
-                    
-                    <div class="overflow-x-auto">
-                        <table class="w-full">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Animal</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Species</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Age</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <span class="text-2xl mr-3">🦁</span>
-                                            <div>
-                                                <div class="text-sm font-medium text-gray-900">Simba</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">African Lion</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">5 years</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Healthy</span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <button class="text-dark-green-600 hover:text-dark-green-900 mr-3">Edit</button>
-                                        <button class="text-red-600 hover:text-red-900">Delete</button>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <span class="text-2xl mr-3">🐘</span>
-                                            <div>
-                                                <div class="text-sm font-medium text-gray-900">Ella</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">African Elephant</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">15 years</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Healthy</span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <button class="text-dark-green-600 hover:text-dark-green-900 mr-3">Edit</button>
-                                        <button class="text-red-600 hover:text-red-900">Delete</button>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <span class="text-2xl mr-3">🦒</span>
-                                            <div>
-                                                <div class="text-sm font-medium text-gray-900">Geoffrey</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Giraffe</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">8 years</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Monitoring</span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <button class="text-dark-green-600 hover:text-dark-green-900 mr-3">Edit</button>
-                                        <button class="text-red-600 hover:text-red-900">Delete</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            <div
+              class="bg-white rounded-lg shadow p-6 border-l-4 border-dark-green-500"
+            >
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm font-medium text-gray-600">Employees</p>
+                  <p class="text-3xl font-bold text-dark-green-600">42</p>
                 </div>
+                <span class="text-3xl">👥</span>
+              </div>
             </div>
 
-            <!-- Employees Page -->
-            <div id="employees-page" class="page-content hidden">
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-                    <div class="lg:col-span-2">
-                        <div class="bg-white rounded-lg shadow">
-                            <div class="p-6 border-b border-gray-200">
-                                <div class="flex justify-between items-center">
-                                    <h3 class="text-lg font-semibold text-gray-800">Employee Directory</h3>
-                                    <button class="bg-dark-green-600 hover:bg-dark-green-700 text-white px-4 py-2 rounded-lg transition-colors duration-200">Add Employee</button>
-                                </div>
-                            </div>
-                            
-                            <div class="p-6">
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div class="border border-gray-200 rounded-lg p-4">
-                                        <div class="flex items-center space-x-4">
-                                            <div class="w-12 h-12 bg-dark-green-500 rounded-full flex items-center justify-center text-white font-bold">JS</div>
-                                            <div>
-                                                <h4 class="font-semibold text-gray-900">Dr. Jane Smith</h4>
-                                                <p class="text-sm text-gray-600">Chief Veterinarian</p>
-                                                <p class="text-sm text-gray-500">jane.smith@ecosystem.com</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="border border-gray-200 rounded-lg p-4">
-                                        <div class="flex items-center space-x-4">
-                                            <div class="w-12 h-12 bg-dark-green-500 rounded-full flex items-center justify-center text-white font-bold">MJ</div>
-                                            <div>
-                                                <h4 class="font-semibold text-gray-900">Mike Johnson</h4>
-                                                <p class="text-sm text-gray-600">Animal Keeper</p>
-                                                <p class="text-sm text-gray-500">mike.johnson@ecosystem.com</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="border border-gray-200 rounded-lg p-4">
-                                        <div class="flex items-center space-x-4">
-                                            <div class="w-12 h-12 bg-dark-green-500 rounded-full flex items-center justify-center text-white font-bold">SB</div>
-                                            <div>
-                                                <h4 class="font-semibold text-gray-900">Sarah Brown</h4>
-                                                <p class="text-sm text-gray-600">Conservation Specialist</p>
-                                                <p class="text-sm text-gray-500">sarah.brown@ecosystem.com</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="border border-gray-200 rounded-lg p-4">
-                                        <div class="flex items-center space-x-4">
-                                            <div class="w-12 h-12 bg-dark-green-500 rounded-full flex items-center justify-center text-white font-bold">DW</div>
-                                            <div>
-                                                <h4 class="font-semibold text-gray-900">David Wilson</h4>
-                                                <p class="text-sm text-gray-600">Research Coordinator</p>
-                                                <p class="text-sm text-gray-500">david.wilson@ecosystem.com</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <div class="bg-white rounded-lg shadow p-6">
-                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Department Stats</h3>
-                            <div class="space-y-4">
-                                <div>
-                                    <div class="flex justify-between text-sm font-medium">
-                                        <span>Veterinary</span>
-                                        <span>12</span>
-                                    </div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-                                        <div class="bg-dark-green-600 h-2 rounded-full" style="width: 30%"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="flex justify-between text-sm font-medium">
-                                        <span>Animal Care</span>
-                                        <span>18</span>
-                                    </div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-                                        <div class="bg-dark-green-600 h-2 rounded-full" style="width: 45%"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="flex justify-between text-sm font-medium">
-                                        <span>Research</span>
-                                        <span>8</span>
-                                    </div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-                                        <div class="bg-dark-green-600 h-2 rounded-full" style="width: 20%"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="flex justify-between text-sm font-medium">
-                                        <span>Administration</span>
-                                        <span>4</span>
-                                    </div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-                                        <div class="bg-dark-green-600 h-2 rounded-full" style="width: 10%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div
+              class="bg-white rounded-lg shadow p-6 border-l-4 border-dark-green-500"
+            >
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm font-medium text-gray-600">
+                    Active Projects
+                  </p>
+                  <p class="text-3xl font-bold text-dark-green-600">12</p>
                 </div>
+                <span class="text-3xl">📋</span>
+              </div>
             </div>
-        </main>
+
+            <div
+              class="bg-white rounded-lg shadow p-6 border-l-4 border-dark-green-500"
+            >
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm font-medium text-gray-600">
+                    Conservation Rate
+                  </p>
+                  <p class="text-3xl font-bold text-dark-green-600">94%</p>
+                </div>
+                <span class="text-3xl">🌱</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="bg-white rounded-lg shadow p-6">
+              <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                Recent Activity
+              </h3>
+              <div class="space-y-4">
+                <div class="flex items-center space-x-3">
+                  <span class="text-2xl">🦁</span>
+                  <div>
+                    <p class="font-medium">New lion cubs born</p>
+                    <p class="text-sm text-gray-600">2 hours ago</p>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                  <span class="text-2xl">👩‍🔬</span>
+                  <div>
+                    <p class="font-medium">Dr. Smith completed health check</p>
+                    <p class="text-sm text-gray-600">4 hours ago</p>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                  <span class="text-2xl">🌿</span>
+                  <div>
+                    <p class="font-medium">New conservation program launched</p>
+                    <p class="text-sm text-gray-600">1 day ago</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+              <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                Quick Actions
+              </h3>
+              <div class="grid grid-cols-2 gap-4">
+                <button
+                  class="bg-dark-green-600 hover:bg-dark-green-700 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+                >
+                  Add Animal
+                </button>
+                <button
+                  class="bg-dark-green-600 hover:bg-dark-green-700 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+                >
+                  New Employee
+                </button>
+                <button
+                  class="bg-dark-green-600 hover:bg-dark-green-700 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+                >
+                  Generate Report
+                </button>
+                <button
+                  class="bg-dark-green-600 hover:bg-dark-green-700 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+                >
+                  Schedule Task
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Animals Page -->
+        <div id="animals-page" class="page-content hidden">
+          <div class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="p-6 border-b border-gray-200">
+              <div class="flex justify-between items-center">
+                <h3 class="text-lg font-semibold text-gray-800">
+                  Animal Registry
+                </h3>
+                <button
+                  class="bg-dark-green-600 hover:bg-dark-green-700 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+                >
+                  Add New Animal
+                </button>
+              </div>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th
+                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Animal
+                    </th>
+                    <th
+                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Species
+                    </th>
+                    <th
+                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Age
+                    </th>
+                    <th
+                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Status
+                    </th>
+                    <th
+                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                  <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <div class="flex items-center">
+                        <span class="text-2xl mr-3">🦁</span>
+                        <div>
+                          <div class="text-sm font-medium text-gray-900">
+                            Simba
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td
+                      class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
+                    >
+                      African Lion
+                    </td>
+                    <td
+                      class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
+                    >
+                      5 years
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <span
+                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+                        >Healthy</span
+                      >
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                      <button
+                        class="text-dark-green-600 hover:text-dark-green-900 mr-3"
+                      >
+                        Edit
+                      </button>
+                      <button class="text-red-600 hover:text-red-900">
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <div class="flex items-center">
+                        <span class="text-2xl mr-3">🐘</span>
+                        <div>
+                          <div class="text-sm font-medium text-gray-900">
+                            Ella
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td
+                      class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
+                    >
+                      African Elephant
+                    </td>
+                    <td
+                      class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
+                    >
+                      15 years
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <span
+                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+                        >Healthy</span
+                      >
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                      <button
+                        class="text-dark-green-600 hover:text-dark-green-900 mr-3"
+                      >
+                        Edit
+                      </button>
+                      <button class="text-red-600 hover:text-red-900">
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <div class="flex items-center">
+                        <span class="text-2xl mr-3">🦒</span>
+                        <div>
+                          <div class="text-sm font-medium text-gray-900">
+                            Geoffrey
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td
+                      class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
+                    >
+                      Giraffe
+                    </td>
+                    <td
+                      class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
+                    >
+                      8 years
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <span
+                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800"
+                        >Monitoring</span
+                      >
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                      <button
+                        class="text-dark-green-600 hover:text-dark-green-900 mr-3"
+                      >
+                        Edit
+                      </button>
+                      <button class="text-red-600 hover:text-red-900">
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Employees Page -->
+        <div id="employees-page" class="page-content hidden">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+            <div class="lg:col-span-2">
+              <div class="bg-white rounded-lg shadow">
+                <div class="p-6 border-b border-gray-200">
+                  <div class="flex justify-between items-center">
+                    <h3 class="text-lg font-semibold text-gray-800">
+                      Employee Directory
+                    </h3>
+                    <button
+                    onclick="openModal()" 
+                      class="bg-dark-green-600 hover:bg-dark-green-700 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+                    >
+                      Add Employee
+                    </button>
+                  </div>
+                </div>
+                <!-- Modal (Hidden by default) -->
+                <div
+                  id="employeeModal"
+                  class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center"
+                >
+                  <div
+                    class="bg-white rounded-2xl shadow-lg w-full max-w-lg p-6 relative"
+                  >
+                    <!-- Close Button -->
+                    <button
+                      onclick="closeModal()"
+                      class="absolute top-3 right-3 text-gray-600 hover:text-black text-xl"
+                    >
+                      &times;
+                    </button>
+
+                    <h2 class="text-2xl font-semibold mb-4 text-gray-800">
+                      Add Employee
+                    </h2>
+
+                    <!-- Employee Form -->
+                    <form class="space-y-4">
+                      <input
+                        type="text"
+                        name="nic"
+                        placeholder="NIC"
+                        class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
+                        required
+                      />
+                      <input
+                        type="text"
+                        name="fullName"
+                        placeholder="Full Name"
+                        class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
+                        required
+                      />
+                      <input
+                        type="text"
+                        name="role"
+                        placeholder="Role"
+                        class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
+                        required
+                      />
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
+                        required
+                      />
+                      <input
+                        type="tel"
+                        name="phoneNumber"
+                        placeholder="Phone Number"
+                        class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
+                        required
+                      />
+                      <input
+                        type="text"
+                        name="address"
+                        placeholder="Address"
+                        class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
+                      />
+
+                      <!-- Gender Dropdown -->
+                      <select
+                        name="gender"
+                        class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
+                        required
+                      >
+                        <option value="" disabled selected>
+                          Select Gender
+                        </option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                      </select>
+
+                      <div class="grid grid-cols-2 gap-4">
+  <input
+    type="date"
+    name="joinDate"
+    placeholder="Join Date"
+    class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
+    required
+  />
+  <input
+    type="date"
+    name="bDay"
+    placeholder="Birthday"
+    class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
+  />
+</div>
+
+
+                      <!-- Image Upload -->
+                      <input
+                        type="file"
+                        name="empImage"
+                        accept="image/*"
+                        class="w-full border p-2 rounded-lg"
+                      />
+
+                      <!-- Submit Button -->
+                      <button
+                        type="submit"
+                        class="w-full bg-green-700 hover:bg-green-800 text-white py-2 rounded-lg"
+                      >
+                        Save Employee
+                      </button>
+                    </form>
+                  </div>
+                </div>
+
+                <div class="p-6">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                      <div class="flex items-center space-x-4">
+                        <div
+                          class="w-12 h-12 bg-dark-green-500 rounded-full flex items-center justify-center text-white font-bold"
+                        >
+                          JS
+                        </div>
+                        <div>
+                          <h4 class="font-semibold text-gray-900">
+                            Dr. Jane Smith
+                          </h4>
+                          <p class="text-sm text-gray-600">
+                            Chief Veterinarian
+                          </p>
+                          <p class="text-sm text-gray-500">
+                            jane.smith@ecosystem.com
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-lg p-4">
+                      <div class="flex items-center space-x-4">
+                        <div
+                          class="w-12 h-12 bg-dark-green-500 rounded-full flex items-center justify-center text-white font-bold"
+                        >
+                          MJ
+                        </div>
+                        <div>
+                          <h4 class="font-semibold text-gray-900">
+                            Mike Johnson
+                          </h4>
+                          <p class="text-sm text-gray-600">Animal Keeper</p>
+                          <p class="text-sm text-gray-500">
+                            mike.johnson@ecosystem.com
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-lg p-4">
+                      <div class="flex items-center space-x-4">
+                        <div
+                          class="w-12 h-12 bg-dark-green-500 rounded-full flex items-center justify-center text-white font-bold"
+                        >
+                          SB
+                        </div>
+                        <div>
+                          <h4 class="font-semibold text-gray-900">
+                            Sarah Brown
+                          </h4>
+                          <p class="text-sm text-gray-600">
+                            Conservation Specialist
+                          </p>
+                          <p class="text-sm text-gray-500">
+                            sarah.brown@ecosystem.com
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-lg p-4">
+                      <div class="flex items-center space-x-4">
+                        <div
+                          class="w-12 h-12 bg-dark-green-500 rounded-full flex items-center justify-center text-white font-bold"
+                        >
+                          DW
+                        </div>
+                        <div>
+                          <h4 class="font-semibold text-gray-900">
+                            David Wilson
+                          </h4>
+                          <p class="text-sm text-gray-600">
+                            Research Coordinator
+                          </p>
+                          <p class="text-sm text-gray-500">
+                            david.wilson@ecosystem.com
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                  Department Stats
+                </h3>
+                <div class="space-y-4">
+                  <div>
+                    <div class="flex justify-between text-sm font-medium">
+                      <span>Veterinary</span>
+                      <span>12</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                      <div
+                        class="bg-dark-green-600 h-2 rounded-full"
+                        style="width: 30%"
+                      ></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-sm font-medium">
+                      <span>Animal Care</span>
+                      <span>18</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                      <div
+                        class="bg-dark-green-600 h-2 rounded-full"
+                        style="width: 45%"
+                      ></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-sm font-medium">
+                      <span>Research</span>
+                      <span>8</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                      <div
+                        class="bg-dark-green-600 h-2 rounded-full"
+                        style="width: 20%"
+                      ></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-sm font-medium">
+                      <span>Administration</span>
+                      <span>4</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                      <div
+                        class="bg-dark-green-600 h-2 rounded-full"
+                        style="width: 10%"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
 
     <script>
-        // Global state
-        let currentPage = 'dashboard';
-        let sidebarOpen = true;
+      // Global state
+      let currentPage = "dashboard";
+      let sidebarOpen = true;
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            showPage('dashboard');
-            setupMobileMenu();
+      // Initialize
+      document.addEventListener("DOMContentLoaded", function () {
+        showPage("dashboard");
+        setupMobileMenu();
+      });
+
+      // Page navigation
+      function showPage(pageName) {
+        // Hide all pages
+        const pages = document.querySelectorAll(".page-content");
+        pages.forEach((page) => page.classList.add("hidden"));
+
+        // Show selected page
+        document.getElementById(pageName + "-page").classList.remove("hidden");
+
+        // Update page title
+        const titles = {
+          dashboard: "Dashboard",
+          animals: "Animals",
+          employees: "Employees",
+        };
+        document.getElementById("page-title").textContent = titles[pageName];
+
+        // Update active nav item
+        const navItems = document.querySelectorAll(".nav-item");
+        navItems.forEach((item) => {
+          item.classList.remove("bg-dark-green-700", "border-dark-green-400");
+          item.classList.add("border-transparent");
         });
 
-        // Page navigation
-        function showPage(pageName) {
-            // Hide all pages
-            const pages = document.querySelectorAll('.page-content');
-            pages.forEach(page => page.classList.add('hidden'));
-            
-            // Show selected page
-            document.getElementById(pageName + '-page').classList.remove('hidden');
-            
-            // Update page title
-            const titles = {
-                'dashboard': 'Dashboard',
-                'animals': 'Animals',
-                'employees': 'Employees'
-            };
-            document.getElementById('page-title').textContent = titles[pageName];
-            
-            // Update active nav item
-            const navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(item => {
-                item.classList.remove('bg-dark-green-700', 'border-dark-green-400');
-                item.classList.add('border-transparent');
-            });
-            
-            const activeItem = document.querySelector(`[data-page="${pageName}"]`);
-            if (activeItem) {
-                activeItem.classList.add('bg-dark-green-700', 'border-dark-green-400');
-                activeItem.classList.remove('border-transparent');
-            }
-            
-            currentPage = pageName;
+        const activeItem = document.querySelector(`[data-page="${pageName}"]`);
+        if (activeItem) {
+          activeItem.classList.add(
+            "bg-dark-green-700",
+            "border-dark-green-400"
+          );
+          activeItem.classList.remove("border-transparent");
         }
 
-        // Mobile menu functionality
-        function setupMobileMenu() {
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const sidebar = document.getElementById('sidebar');
-            const mainContent = document.getElementById('main-content');
-            
-            mobileMenuBtn.addEventListener('click', function() {
-                sidebarOpen = !sidebarOpen;
-                
-                if (window.innerWidth < 768) {
-                    if (sidebarOpen) {
-                        sidebar.classList.remove('-translate-x-full');
-                        mainContent.classList.remove('ml-0');
-                        mainContent.classList.add('ml-64');
-                    } else {
-                        sidebar.classList.add('-translate-x-full');
-                        mainContent.classList.add('ml-0');
-                        mainContent.classList.remove('ml-64');
-                    }
-                }
-            });
+        currentPage = pageName;
+      }
 
-            // Close sidebar when clicking outside on mobile
-            document.addEventListener('click', function(e) {
-                if (window.innerWidth < 768 && sidebarOpen && 
-                    !sidebar.contains(e.target) && 
-                    !mobileMenuBtn.contains(e.target)) {
-                    sidebarOpen = false;
-                    sidebar.classList.add('-translate-x-full');
-                    mainContent.classList.add('ml-0');
-                    mainContent.classList.remove('ml-64');
-                }
-            });
+      // Mobile menu functionality
+      function setupMobileMenu() {
+        const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+        const sidebar = document.getElementById("sidebar");
+        const mainContent = document.getElementById("main-content");
 
-            // Handle responsive behavior
-            window.addEventListener('resize', function() {
-                if (window.innerWidth >= 768) {
-                    sidebar.classList.remove('-translate-x-full');
-                    mainContent.classList.remove('ml-0');
-                    mainContent.classList.add('ml-64');
-                } else if (!sidebarOpen) {
-                    sidebar.classList.add('-translate-x-full');
-                    mainContent.classList.add('ml-0');
-                    mainContent.classList.remove('ml-64');
-                }
-            });
+        mobileMenuBtn.addEventListener("click", function () {
+          sidebarOpen = !sidebarOpen;
 
-            // Initialize mobile state
-            if (window.innerWidth < 768) {
-                sidebarOpen = false;
-                sidebar.classList.add('-translate-x-full');
-                mainContent.classList.add('ml-0');
-                mainContent.classList.remove('ml-64');
+          if (window.innerWidth < 768) {
+            if (sidebarOpen) {
+              sidebar.classList.remove("-translate-x-full");
+              mainContent.classList.remove("ml-0");
+              mainContent.classList.add("ml-64");
+            } else {
+              sidebar.classList.add("-translate-x-full");
+              mainContent.classList.add("ml-0");
+              mainContent.classList.remove("ml-64");
             }
-        }
-
-        // Add some interactive behavior to buttons
-        document.addEventListener('click', function(e) {
-            if (e.target.tagName === 'BUTTON' && !e.target.id) {
-                e.target.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    e.target.style.transform = 'scale(1)';
-                }, 150);
-            }
+          }
         });
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener("click", function (e) {
+          if (
+            window.innerWidth < 768 &&
+            sidebarOpen &&
+            !sidebar.contains(e.target) &&
+            !mobileMenuBtn.contains(e.target)
+          ) {
+            sidebarOpen = false;
+            sidebar.classList.add("-translate-x-full");
+            mainContent.classList.add("ml-0");
+            mainContent.classList.remove("ml-64");
+          }
+        });
+
+        // Handle responsive behavior
+        window.addEventListener("resize", function () {
+          if (window.innerWidth >= 768) {
+            sidebar.classList.remove("-translate-x-full");
+            mainContent.classList.remove("ml-0");
+            mainContent.classList.add("ml-64");
+          } else if (!sidebarOpen) {
+            sidebar.classList.add("-translate-x-full");
+            mainContent.classList.add("ml-0");
+            mainContent.classList.remove("ml-64");
+          }
+        });
+
+        // Initialize mobile state
+        if (window.innerWidth < 768) {
+          sidebarOpen = false;
+          sidebar.classList.add("-translate-x-full");
+          mainContent.classList.add("ml-0");
+          mainContent.classList.remove("ml-64");
+        }
+      }
+
+      // Add some interactive behavior to buttons
+      document.addEventListener("click", function (e) {
+        if (e.target.tagName === "BUTTON" && !e.target.id) {
+          e.target.style.transform = "scale(0.95)";
+          setTimeout(() => {
+            e.target.style.transform = "scale(1)";
+          }, 150);
+        }
+      });
+
+    //   EmployeeForm Open
+    function openModal() {
+      document.getElementById("employeeModal").classList.remove("hidden");
+      document.getElementById("employeeModal").classList.add("flex");
+    }
+    function closeModal() {
+      document.getElementById("employeeModal").classList.add("hidden");
+      document.getElementById("employeeModal").classList.remove("flex");
+    }
     </script>
-</body>
+  </body>
 </html>
