@@ -12,7 +12,7 @@ function closeModal() {
 $(document).ready(function () {
     // Fetch employees from backend
     $.ajax({
-      url: "http://localhost:8080/employees", // <-- adjust if your endpoint is different
+      url: "http://localhost:8080/employee", // <-- adjust if your endpoint is different
       method: "GET",
       dataType: "json",
       success: function (employees) {
