@@ -392,7 +392,7 @@
                       Employee Directory
                     </h3>
                     <button
-                    onclick="openModal()" 
+                      onclick="openModal()"
                       class="bg-dark-green-600 hover:bg-dark-green-700 text-white px-4 py-2 rounded-lg transition-colors duration-200"
                     >
                       Add Employee
@@ -435,13 +435,28 @@
                         class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
                         required
                       />
-                      <input
-                        type="text"
-                        name="role"
-                        placeholder="Role"
-                        class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
-                        required
-                      />
+                      <div class="grid grid-cols-2 gap-4">
+                        <input
+                          type="text"
+                          name="role"
+                          placeholder="Role"
+                          class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
+                          required
+                        />
+                        <!-- Gender Dropdown -->
+                        <select
+                          name="gender"
+                          class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
+                          required
+                        >
+                          <option value="" disabled selected>
+                            Select Gender
+                          </option>
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                        </select>
+                      </div>
+
                       <input
                         type="email"
                         name="email"
@@ -463,35 +478,28 @@
                         class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
                       />
 
-                      <!-- Gender Dropdown -->
-                      <select
-                        name="gender"
-                        class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
-                        required
-                      >
-                        <option value="" disabled selected>
-                          Select Gender
-                        </option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                      </select>
-
                       <div class="grid grid-cols-2 gap-4">
-  <input
-    type="date"
-    name="joinDate"
-    placeholder="Join Date"
-    class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
-    required
-  />
-  <input
-    type="date"
-    name="bDay"
-    placeholder="Birthday"
-    class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
-  />
-</div>
+                        <div>
+                          <label for="">join Date</label>
+                          <input
+                            type="date"
+                            name="joinDate"
+                            placeholder="Join Date"
+                            class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
+                            required
+                          />
+                        </div>
 
+                        <div>
+                          <label for="">B Day</label>
+                          <input
+                            type="date"
+                            name="bDay"
+                            placeholder="Birthday"
+                            class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
+                          />
+                        </div>
+                      </div>
 
                       <!-- Image Upload -->
                       <input
@@ -778,15 +786,15 @@
         }
       });
 
-    //   EmployeeForm Open
-    function openModal() {
-      document.getElementById("employeeModal").classList.remove("hidden");
-      document.getElementById("employeeModal").classList.add("flex");
-    }
-    function closeModal() {
-      document.getElementById("employeeModal").classList.add("hidden");
-      document.getElementById("employeeModal").classList.remove("flex");
-    }
+      //   EmployeeForm Open
+      function openModal() {
+        document.getElementById("employeeModal").classList.remove("hidden");
+        document.getElementById("employeeModal").classList.add("flex");
+      }
+      function closeModal() {
+        document.getElementById("employeeModal").classList.add("hidden");
+        document.getElementById("employeeModal").classList.remove("flex");
+      }
     </script>
   </body>
 </html>
