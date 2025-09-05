@@ -1,3 +1,5 @@
+getAllEmployee()
+
 //   EmployeeForm Open
 function openModal() {
   document.getElementById("employeeModal").classList.remove("hidden");
@@ -22,8 +24,10 @@ function closeModal() {
     }
   }
 
-  $(document).ready(function () {
-  // Fetch employees from backend
+
+
+  function getAllEmployee() {
+    // Fetch employees from backend
   $.ajax({
     url: "http://localhost:8080/agriherd/api/v1/employee", 
     method: "GET",
@@ -69,6 +73,24 @@ function closeModal() {
                 <p class="text-sm text-gray-500">Birthday: ${emp.bDay}</p>
               </div>
             </div>
+            <button onclick="updateEmployee('${emp.empId}')"
+        class="text-blue-600 hover:text-blue-800 p-1 rounded">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" 
+             viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M11 4h2m-1 0v16m7-8H5" />
+        </svg>
+      </button>
+
+      <!-- Delete button -->
+      <button onclick="deleteEmployee('${emp.empId}')"
+        class="text-red-600 hover:text-red-800 p-1 rounded">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" 
+             viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
           </div>
         `;
 
@@ -80,4 +102,8 @@ function closeModal() {
       console.error("Error fetching employees:", error);
     }
   });
+  }
+
+  $(document).ready(function () {
+  
 });
