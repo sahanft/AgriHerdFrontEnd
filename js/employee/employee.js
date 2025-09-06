@@ -107,3 +107,30 @@ function closeModal() {
   $(document).ready(function () {
   
 });
+
+
+// employee save funtion
+$(document).ready(function () {
+    $("form").on("submit", function (e) {
+      e.preventDefault(); // prevent normal form submission
+
+      let form = $(this)[0];
+      let formData = new FormData(form); // capture all form inputs including file
+
+      $.ajax({
+        url: "http://localhost:8080/agriherd/api/v1/employee",
+        method: "POST",
+        data: formData,
+        contentType: false,   // ❗ important for multipart
+        processData: false,   // ❗ important for multipart
+        success: function () {
+          alert("✅ Employee saved successfully!");
+          form.reset(); // clear form after success
+        },
+        error: function (xhr, status, error) {
+          console.error("❌ Error saving employee:", error);
+          alert("Error: " + xhr.responseText);
+        }
+      });
+    });
+  });
